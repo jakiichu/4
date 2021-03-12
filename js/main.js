@@ -3,23 +3,46 @@ let app1 = new Vue({
   data: {
     rawHtml: "",
     fish: [],
-    game: false,
+    game: true,
     counter: 0,
+    currentTime: 10,
+    timer: null,
+    seen: true
   },
-
+  watch: {
+    currentTime(time) {
+      if (time === 0) {
+        this.stopTimer()
+        
+        this.seen = false;
+      }
+    }
+  },
   methods: {
     createMoreBlockDivFish: function (iteration) {
       for (i = 0; iteration > i; i++) {
+
         this.createOneDiv(i);
-        this.main(i);
+        this.main(this.fish[i]);
       }
+      this.startTimer()
     },
+
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.currentTime--
+      }, 1000)
+    },
+    stopTimer() {
+      clearTimeout(this.timer)
+    },
+
 
     createOneDiv: function (id) {
       this.fish[id] = id;
-      this.fish.id = this.fish[id];
+
       let asd = {
-        id:"",
+        id: "",
         position: "absolute",
         width: "90px",
         height: "60px",
@@ -28,14 +51,12 @@ let app1 = new Vue({
         left: "",
         top: "",
       };
-      this.fish[id] = this.fish.id;
-      console.log(this.fish.id)
+      asd.id = id;
       asd.letLeft = this.randomLeft();
       asd.left = asd.letLeft + "px";
       asd.letTop = this.randomTop();
       asd.top = asd.letTop + "px";
       this.fish.splice(id, 1, asd);
-      console.log(this.fish.id);
     },
 
     randomLeft: function () {
@@ -50,69 +71,77 @@ let app1 = new Vue({
       return Math.floor(Math.random() * Math.floor(4));
     },
 
-    movement: function (id, x, y) {
-      condition = true;
-      let i = 0;
-      let timerId = setInterval(() => this.movementWhile(id, x, y), 5);
+    movement: function (item, x, y) {
+      let timerId = setInterval(() => this.movementWhile(item, x, y), 10);
+      item.timerId = timerId;
+      console.log(item.timerId)
+
     },
-    movementWhile: function (id, x, y) {
+    movementWhile: function (item, x, y) {
 
-      this.fish[id].letTop = this.fish[id].letTop + y;
-      this.fish[id].top = this.fish[id].letTop + "px";
+      item.letTop = item.letTop + y;
+      item.top = item.letTop + "px";
 
-      this.fish[id].letLeft = this.fish[id].letLeft + x;
-      this.fish[id].left = this.fish[id].letLeft + "px";
+      item.letLeft = item.letLeft + x;
+      item.left = item.letLeft + "px";
 
-      if (this.fish[id].letLeft === 0) {
-        this.fish[id].letLeft = 1819;
-        this.fish[id].left = this.fish[id].letLeft + "px";
+      if (item.letLeft === 0) {
+        item.letLeft = 1819;
+        item.left = item.letLeft + "px";
       }
-      if (this.fish[id].letLeft === 1820) {
-        this.fish[id].letLeft = 1;
-        this.fish[id].left = this.fish[id].letLeft + "px";
+      if (item.letLeft === 1820) {
+        item.letLeft = 1;
+        item.left = item.letLeft + "px";
       }
-      if (this.fish[id].letTop === 0) {
-        this.fish[id].letTop = 819;
-        this.fish[id].top = this.fish[id].letTop + "px";
+      if (item.letTop === 0) {
+        item.letTop = 819;
+        item.top = item.letTop + "px";
       }
-      if (this.fish[id].letTop === 820) {
-        this.fish[id].letTop = 1;
-        this.fish[id].top = this.fish[id].letTop + "px";
+      if (item.letTop === 820) {
+        item.letTop = 1;
+        item.top = item.letTop + "px";
       }
+
+
     },
 
-    main: function (id) {
+
+    main: function (item) {
       let Direction = this.randomDirection();
-      console.log(id + "- id");
       let x = 0;
       let y = 0;
       if (Direction === 1) {
         //++
         x = 1;
         y = 1;
-        
-        this.movement(id, x, y);
+
+        this.movement(item, x, y);
       } else if (Direction === 2) {
         //+-
         x = 1;
         y = -1;
-        this.movement(id, x, y);
+        this.movement(item, x, y);
       } else if (Direction === 3) {
         //-+
         x = -1;
         y = 1;
-        this.movement(id, x, y);
+        this.movement(item, x, y);
       } else {
         //--
         x = -1;
         y = -1;
-        this.movement(id, x, y);
+        this.movement(item, x, y);
       }
     },
-    counterI: function(){
+    counterI: function (item) {
+
       this.counter += this.randomDirection();
-      console.log('нажатие');
-      console.log(this.fish[id])
+      this.movement(item.timerId, 2, 2)
+      console.log(item);
+      clearInterval(item.timerId);
+
+      this.fish.splice(this.fish.indexOf(item), 1);
+
     }
   },
 });

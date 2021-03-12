@@ -1,35 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <script defer src="js/vue.js"></script>
-    <script defer src="js/main.js"></script>
-    <title>Document</title>
-    <style>
-      .counter {
-        position: absolute;
-        position: sticky;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- <div class="game">
-             <button v-on:click="start" ></button>
-            <img v-for="item in fish" :style="styleObject"  v-html="rawHtml" src="fish.png">
-        </div> -->
 
-    <div class="game1">
-      <p class="counter">{{ counter }}</p>
-      <button v-on:click="createMoreBlockDivFish(21)"></button>
-      <img
-        v-on:click="counterI()"
-        v-for="item in fish"
-        :style="item"
-        v-html="rawHtml"
-        src="fish.png"
-      />
-    </div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <script defer src="js/vue.js"></script>
+  <script defer src="js/main.js"></script>
+  <title>Document</title>
+  <style>
+    body {
+      background-image: url(unnamed.jpg);
+      background-size: 100% 800%;
+    }
+  </style>
+</head>
+
+<body src='unnamed.jpg'>
+  <div class="game1">
+    <p class="counter">очки {{ counter }}</p>
+    <p class="counter">времени {{ currentTime }}</p>
+    <button v-on:click="createMoreBlockDivFish(10)"></button>
+    <div v-if="seen" id="hide">
+      <img v-on:click="counterI(item)" v-for="(item, key) in fish" :style="item" :key="key" v-html="rawHtml"
+        src="fish.png" /></div>
+  </div>
+</body>
+
 </html>
