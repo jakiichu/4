@@ -11,16 +11,23 @@
   <style>
     body {
       background-image: url(unnamed.jpg);
-      background-size: 100% 800%;
+      background-size: 100% 900%;
+      width: 1920;
+      height: 1080;
+    }
+    h1{
+      color: aliceblue
     }
   </style>
 </head>
 
 <body src='unnamed.jpg'>
   <div class="game1">
-    <p class="counter">очки {{ counter }}</p>
-    <p class="counter">времени {{ currentTime }}</p>
-    <button v-on:click="createMoreBlockDivFish(10)"></button>
+    <input v-model="inputName" placeholder="введите имя">
+    <h1>{{asd}}</h1>
+    <h1 class="counter">очки {{ counter }}</h1>
+    <h1 class="counter">времени {{ currentTime }}</h1>
+    <button v-on:click="createMoreBlockDivFish(10)" v-on:click="createMoreBlockDivFish(10)">start</button>
     <div v-if="seen" id="hide">
       <img v-on:click="counterI(item)" v-for="(item, key) in fish" :style="item" :key="key" v-html="rawHtml"
         src="fish.png" /></div>

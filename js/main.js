@@ -7,7 +7,9 @@ let app1 = new Vue({
     counter: 0,
     currentTime: 10,
     timer: null,
-    seen: true
+    seen: true,
+    inputName: "",
+    asd: "",
   },
   watch: {
     currentTime(time) {
@@ -15,6 +17,7 @@ let app1 = new Vue({
         this.stopTimer()
         
         this.seen = false;
+        this.asd = this.inputName + " набрал " + this.counter;
       }
     }
   },
@@ -35,6 +38,7 @@ let app1 = new Vue({
     },
     stopTimer() {
       clearTimeout(this.timer)
+      
     },
 
 
@@ -136,12 +140,13 @@ let app1 = new Vue({
     counterI: function (item) {
 
       this.counter += this.randomDirection();
-      this.movement(item.timerId, 2, 2)
+      this.movement(item.timerId, 2, 2);
       console.log(item);
       clearInterval(item.timerId);
 
       this.fish.splice(this.fish.indexOf(item), 1);
 
-    }
+    },
+    
   },
 });
