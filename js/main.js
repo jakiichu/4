@@ -15,7 +15,6 @@ let app1 = new Vue({
     currentTime(time) {
       if (time === 0) {
         this.stopTimer()
-        
         this.seen = false;
         this.asd = this.inputName + " набрал " + this.counter;
       }
@@ -24,7 +23,6 @@ let app1 = new Vue({
   methods: {
     createMoreBlockDivFish: function (iteration) {
       for (i = 0; iteration > i; i++) {
-
         this.createOneDiv(i);
         this.main(this.fish[i]);
       }
@@ -36,11 +34,10 @@ let app1 = new Vue({
         this.currentTime--
       }, 1000)
     },
+
     stopTimer() {
       clearTimeout(this.timer)
-      
     },
-
 
     createOneDiv: function (id) {
       this.fish[id] = id;
@@ -79,16 +76,14 @@ let app1 = new Vue({
       let timerId = setInterval(() => this.movementWhile(item, x, y), 10);
       item.timerId = timerId;
       console.log(item.timerId)
-
     },
-    movementWhile: function (item, x, y) {
 
+    movementWhile: function (item, x, y) {
       item.letTop = item.letTop + y;
       item.top = item.letTop + "px";
 
       item.letLeft = item.letLeft + x;
       item.left = item.letLeft + "px";
-
       if (item.letLeft === 0) {
         item.letLeft = 1819;
         item.left = item.letLeft + "px";
@@ -105,10 +100,7 @@ let app1 = new Vue({
         item.letTop = 1;
         item.top = item.letTop + "px";
       }
-
-
     },
-
 
     main: function (item) {
       let Direction = this.randomDirection();
@@ -118,7 +110,6 @@ let app1 = new Vue({
         //++
         x = 1;
         y = 1;
-
         this.movement(item, x, y);
       } else if (Direction === 2) {
         //+-
@@ -137,16 +128,13 @@ let app1 = new Vue({
         this.movement(item, x, y);
       }
     },
-    counterI: function (item) {
 
+    counterI: function (item) {
       this.counter += this.randomDirection();
       this.movement(item.timerId, 2, 2);
       console.log(item);
       clearInterval(item.timerId);
-
       this.fish.splice(this.fish.indexOf(item), 1);
-
     },
-    
   },
 });

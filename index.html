@@ -27,7 +27,7 @@
     <h1>{{asd}}</h1>
     <h1 class="counter">очки {{ counter }}</h1>
     <h1 class="counter">времени {{ currentTime }}</h1>
-    <button v-on:click="createMoreBlockDivFish(10)" v-on:click="createMoreBlockDivFish(10)">start</button>
+    <button v-on:click="createMoreBlockDivFish(30)">start</button>
     <div v-if="seen" id="hide">
       <img v-on:click="counterI(item)" v-for="(item, key) in fish" :style="item" :key="key" v-html="rawHtml"
         src="fish.png" /></div>
